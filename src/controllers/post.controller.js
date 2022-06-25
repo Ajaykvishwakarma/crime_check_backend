@@ -3,6 +3,8 @@ const Post = require('../models/post.model');
 
 const router = express.Router();
 
+
+// All Data From User Posts
 router.get('/allposts/:id',async (req,res)=>{
     try {
         
@@ -31,25 +33,20 @@ router.get('/allposts/:id',async (req,res)=>{
                     "userdata"  : [
                         {
                             "_id" : "9183745kjqwhf893745",
-                            "username" : "vijendrasaini0101",
+                            "username" : "ajayi0101",
                             "passowerd" : "alskdjvoiawer"
                         }
                     ]
                 }
         
         */
-
-
-
-
-
-
-
         res.send(post)
     } catch (error) {
         res.status(500).send({message : error.message})
     }
 })
+
+
 router.get('/post/:id',async (req,res)=>{
     try {
         
@@ -77,19 +74,13 @@ router.get('/post/:id',async (req,res)=>{
                     "userdata"  : [
                         {
                             "_id" : "9183745kjqwhf893745",
-                            "username" : "vijendrasaini0101",
+                            "username" : "ajayi0101",
                             "passowerd" : "alskdjvoiawer"
                         }
                     ]
                 }
         
         */
-
-
-
-
-
-
 
         res.send(post)
     } catch (error) {
@@ -122,7 +113,7 @@ router.get('/posts', async(req, res) => {
                       }
                  },
                  {
-                    $sort: { date: 1 }
+                    $sort: { "date" : -1 }
                  }
             ]
         )
