@@ -3,92 +3,6 @@ const Post = require('../models/post.model');
 
 const router = express.Router();
 
-
-// All Data From User Posts
-router.get('/allposts/:id',async (req,res)=>{
-    try {
-        
-        let post = await Post.aggregate(
-            [
-                {
-                    $match  : {user_id : req.params.id}
-                },
-                {
-                    $lookup:
-                      {
-                        from: "users",
-                        localField: "user_id",
-                        foreignField: "_id",
-                        as:"userdata" ,
-                      }
-                 },
-                 
-            ]
-        )
-        /* 
-        {
-                    user_Id : "9183745kjqwhf893745",
-                    notice_text : "TEXT 1 ",
-                    date : "49-may-4837",
-                    "userdata"  : [
-                        {
-                            "_id" : "9183745kjqwhf893745",
-                            "username" : "ajayi0101",
-                            "passowerd" : "alskdjvoiawer"
-                        }
-                    ]
-                }
-        
-        */
-        res.send(post)
-    } catch (error) {
-        res.status(500).send({message : error.message})
-    }
-})
-
-
-router.get('/post/:id',async (req,res)=>{
-    try {
-        
-        let post = await Post.aggregate(
-            [
-                {
-                    $match  : {_id : req.params.id}
-                },
-                {
-                    $lookup:
-                      {
-                        from: "users",
-                        localField: "user_id",
-                        foreignField: "_id",
-                        as:"userdata" ,
-                      }
-                 },
-            ]
-        )
-        /* 
-        {
-                    user_Id : "9183745kjqwhf893745",
-                    notice_text : "TEXT 1 ",
-                    date : "49-may-4837",
-                    "userdata"  : [
-                        {
-                            "_id" : "9183745kjqwhf893745",
-                            "username" : "ajayi0101",
-                            "passowerd" : "alskdjvoiawer"
-                        }
-                    ]
-                }
-        
-        */
-
-        res.send(post)
-    } catch (error) {
-        res.status(500).send({message : error.message})
-    }
-})
-
-
 router.post('/post',  async (req, res) => {
     try{
         const post = await Post.create(req.body)
@@ -113,7 +27,7 @@ router.get('/posts', async(req, res) => {
                       }
                  },
                  {
-                    $sort: { "date" : -1 }
+                    $sort: { "date" : 1 }
                  }
             ]
         )
