@@ -20,6 +20,7 @@ router.get('/allposts/:id',async (req,res)=>{
                         as:"userdata" ,
                       }
                  },
+                 
             ]
         )
         /* 
@@ -120,6 +121,9 @@ router.get('/posts', async(req, res) => {
                         as:"userdata" ,
                       }
                  },
+                 {
+                    $sort: { date: 1 }
+                 }
             ]
         )
         return res.send(posts);
